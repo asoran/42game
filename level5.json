@@ -1,0 +1,24 @@
+{
+    "map":
+    [
+        ["green","rien","rien","rien","rien","rien"],
+        ["green","rien","rien","rien","rien","rien"],
+        ["green","rien","rien","rien","rien","rien"],
+        ["green","rien","rien","rien","rien","rien"],
+        ["green","rien","rien","rien","rien","rien"],
+        ["green","rien","rien","rien","rien","rien"],
+        ["green","rien","rien","rien","rien","rien"],
+        ["orange","green","rien","rien","rien","rien"],
+        ["rien","green","green","rien","rien","rien"],
+        ["rien","rien","green","green","rien","rien"],
+        ["rien","rien","rien","green","green","rien"],
+        ["rien","rien","rien","rien","green","green"],
+        ["rien","rien","rien","rien","rien","green"]
+    ],
+    "dir": 180,
+    "stars": [
+        [12, 5],
+        [1, 0]
+    ],
+    "spawn": [0, 0]
+}

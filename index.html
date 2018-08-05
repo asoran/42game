@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>42 test</title>
+        <style>
+        table{
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        table, td{
+            border: 1px solid black;
+        }
+
+        div#ici td{
+            border: none;
+        }
+        div#ici td.OK{
+            border: 1px solid black;
+        }
+
+        td{
+            width: 30px;
+            height: 30px;
+            font-size: 30px;
+        }
+        td.sel{
+            background-color: lightgray;
+
+        }
+        </style>
+    </head>
+    <body onLoad="init();">
+
+        <div id="ici"><h1>Hello World</h1><br/></div>
+        <div id="now"></div>
+        <div id="btns">
+            Btns:
+            <button onClick="move(F1);">Move</button>
+            <button onClick="lose();">Stop</button>
+            <button onClick="clearF();">Clear</button>
+
+            <br/>
+            Commande:<br/>
+            <span id="go" onClick="addMove('go');">GO</span>/
+            <span id="turnL" onClick="addMove('turnL');">turnL</span>/
+            <span id="turnR" onClick="addMove('turnR');">turnR</span>/
+            <span id="addBrushRed" style="background-color: orange;"onClick="addMove('brush orange');">brush orange</span>/
+            <span id="addF1" onClick="addMove('F1');">F1</span>/
+            <span id="addF2" onClick="addMove('F2');">F2</span>/
+        </div>
+        <div id="colors">Colors:<br/>
+            <table><tr>
+                <td style="background-color: red;" id="red" onClick="addColor('red');"></td>
+                <td style="background-color: blue;" id="blue" onClick="addColor('blue');"></td>
+                <td style="background-color: green;" id="green" onClick="addColor('green');"></td>
+                <td style="background-color: yellow;" id="yellow" onClick="addColor('yellow');"></td>
+                <td style="background-color: orange;" id="orange" onClick="addColor('orange');"></td>
+            </tr></table>
+        </div>
+        Algo ::
+        <div id="algo">
+            <table id="F1"><tr>
+                <td onClick="sel(this);" class="sel"></td>
+                <td onClick="sel(this);"></td>
+                <td onClick="sel(this);"></td>
+                <td onClick="sel(this);"></td>
+                <td onClick="sel(this);"></td>
+                <td onClick="sel(this);"></td>
+            </tr></table>
+
+            <table id="F2"><tr>
+                <td onClick="sel(this);"></td>
+                <td onClick="sel(this);"></td>
+                <td onClick="sel(this);"></td>
+                <td onClick="sel(this);"></td>
+                <td onClick="sel(this);"></td>
+                <td onClick="sel(this);"></td>
+            </tr></td></table>
+        </div>
+        <div></div>
+    </body>
+    <script>
+    var s = 0; //current case
+
+    var level = new Array(); // tableau<Case> : jeux/level
+    var table; // le tableau HTML
+    var player;
+    // Un level:
+    // Pas de couleurs mais des chiffres
+
+    var F1 = [];
+    var F2 = [];
+    var UwU = 'OwO';
+    var collected = 0;
+
+    var speed = 500;
+    var tick; // C'est ici qu'on move
+    var dir = 0;
+    var curL = 0;
+    var maxL = 5;
+
+    async function init(){
+        // load('level1').then((r) => {
+        //     console.log(r);
+        //     console.log('youpi');
+        //     dir = a.dir;
+        //     level = Class(a.map, a.spawn, a.stars);
+        //     drawBox(document.getElementById('ici'), level);
+        // });
+        // OR ????
+        // b = await load('level1');
+        // console.log(b);
+        // level = Class(b.map, b.spawn, b.stars);
+        // drawBox(document.getElementById('ici'), level);
+
+        load('level'+curL);
+    }
+
+    var stars, map, spawn;
+
+    async function load(_lv){
+        var request = new XMLHttpRequest();
+        request.open('GET', _lv+'.json', true);
+
+        request.onload = function(e) {
+            console.log(request);
+        	data = JSON.parse(request.responseText);
+        	console.log(data);
+            a = data;
+
+            player = a.spawn;
+            dir = a.dir;
+            clearF();
+
+
+            level = Class(map = a.map, spawn = a.spawn, stars = a.stars);
+            drawBox(document.getElementById('ici'), level);
+        };
+
+        request.onerror = function(e) {
+          alert('Level loading failed');
+          console.log(e)
+        };
+
+        request.send();
+    }
+    var a;
+
+
+//////////////////////////////////////////////////////////////
+
+    class Case{
+        constructor(_color, _item = ''){
+            this.color = _color;
+            this.item = _item;
+        }
+    }
+    class Action{
+        constructor(_a, _c = ''){
+            this.action = _a;
+            this.color = _c;
+
+        }
+    }
+
+    function Class(_map, _spawn, _stars){
+        //tableau => Case
+        let lv = new Array();
+        for (var i = 0; i < _map.length; i++) {
+            lv.push(new Array());
+            for (var j = 0; j < _map[i].length; j++) {
+                lv[i].push();
+                lv[i][j] = new Case(_map[i][j])
+            }
+        }
+        _stars.forEach(function(e, i){
+            lv[e[0]][e[1]] = new Case(lv[e[0]][e[1]].color, 'star');
+        })
+        lv[_spawn[0]][_spawn[1]] = new Case(lv[_spawn[0]][_spawn[1]].color, 'spawn');
+
+        return lv;
+    }
+
+    var x, y;
+    function sel(td){
+        if((a = document.getElementsByClassName('sel')).length != 0)
+            a[0].className = '';
+
+        td.className = 'sel';
+        b = Array.from(td.parentElement.cells);
+        c = b.indexOf(td);
+        x = td;
+        s = c;
+    }
+
+    // Dessine dans div, _level avec _spawn et _stars
+    function drawBox(div, _level){
+        if(Array.isArray(_level)){
+
+            div.innerHTML = '';
+            // Crée le tableau HTML vide
+            table = document.createElement('table');
+            for(i = 0; i < _level.length; ++i){
+                table.insertRow();
+                for(j = 0; j < _level[i].length; ++j){
+                    table.rows[i].insertCell();
+                }
+            }
+            // Le remplir
+            for(i = 0; i < _level.length; ++i){
+                let col = table.rows[i];
+                _level[i].forEach(function(e, j){
+                    let cel = col.cells[j];
+                    if(e.color != 'rien'){
+                        cel.style.backgroundColor = e.color;
+                        cel.className = 'OK';
+                    }
+                    switch (e.item) {
+                        case 'star':
+                            cel.innerText = 'S';
+                            break;
+                        case 'spawn':
+                            cel.innerText = dirToString(dir);
+                            break;
+                        default:
+                            ;
+                    }
+                });
+            }
+            div.appendChild(table);
+        }else{
+            alert('Error: Plase try again');
+        }
+    }
+
+
+        function addMove(_m, _c = null){
+            // if(F1[s] == undefined)
+            //     F1[s] = new Action();
+            let ff = document.getElementsByClassName('sel')[0].parentElement.parentElement.parentElement.id;
+            eval("if("+ff+"[s] == undefined) "+ff+"[s] = new Action();")
+
+            eval(`
+                document.getElementsByClassName('sel')[0].innerText = ${ff}[s].action = (${ff}[s].action == _m ? '' : _m);
+                `);
+
+        }
+        function addColor(_c){
+            let ff = document.getElementsByClassName('sel')[0].parentElement.parentElement.parentElement.id;
+            eval("if("+ff+"[s] == undefined) "+ff+"[s] = new Action();")
+
+            eval(`
+                document.getElementsByClassName('sel')[0].style.backgroundColor = ${ff}[s].color = (${ff}[s].color == _c ? '' : _c);
+                `);
+        }
+
+        function move(_action){
+            console.log(_action);
+
+            if(_action.length > 0){
+                let a = _action[0];
+                let sortie = false;
+                // Si c pas la bonne couleur || c vide (action) => on zap
+
+                if(a.action == '' || (a.color != '' && a.color != level[player[0]][player[1]].color))
+                    _action = _action.slice(1);
+                else{
+                    switch (a.action.split(' ')[0]) {
+                        case 'go':
+                            let d = Math.abs(dir)%360; //La direction du joueur
+                            moveY = (d==90||d==270 ? (d==90?1:-1) : 0);
+                            moveX = (d==180||d==0 ? (d==180?1:-1) : 0);
+
+                            let p = []; // La position suivante
+                            p[0] = player[0] + moveX;
+                            p[1] = player[1] + moveY;
+
+                            let levelX = level.length,
+                                levelY = level[0].length;
+                                console.log(p);
+                            if(p[0] < 0 || p[1] < 0 || p[0] < 0 || p[1] < 0 || p[0] == levelX || p[1] == levelY || level[p[0]][p[1]].color == 'rien'){
+                                _action = [];
+                                sortie = true;
+                                (new Promise((r, rr) => {
+                                    table.rows[player[0]].cells[player[1]].innerText = '';
+                                    setTimeout(r, 100);
+                                })).then(() => {
+                                    lose('sortie');
+                                });
+                            }else{
+                                // Mouvement réussie
+                                table.rows[player[0]].cells[player[1]].innerText = '';
+                                player = p;
+                                if((x = level[player[0]][player[1]]).item != ''){
+                                    console.log('You stepped on a ' + x.item);
+                                    if(x.item == 'star')
+                                        ++collected;
+                                    x.item = '';
+                                }
+                            }
+
+                            _action = _action.slice(1);
+                            break;
+                        case 'turnL':
+                            dir-=90;
+                            _action = _action.slice(1);
+                            break;
+                        case 'turnR':
+                            dir+=90;
+                            _action = _action.slice(1);
+                            break;
+                        case 'F1':
+                            _action = F1;
+                            break;
+                        case 'F2':
+                            _action = F2;
+                            break;
+                        case 'brush':
+                            let _c = a.action.split(' ')[1];
+                            table.rows[player[0]].cells[player[1]].style.backgroundColor = _c;
+                            level[player[0]][player[1]].color = _c;
+                            _action = _action.slice(1);
+                            break;
+                        default:
+                            stop();
+                            console.log('NOTHING')
+                            break;
+                    }
+                }
+                // traitement
+                document.getElementById('now').innerText = _action.map(x => x.action).join(' / ');
+                if(!sortie){
+                    table.rows[player[0]].cells[player[1]].innerText = dirToString(dir);
+                    if(collected == stars.length)
+                        win();
+                    else
+                        tick = setTimeout(function(){move(_action)}, speed);
+                }
+
+            }else{
+                lose('Action vide');
+            }
+        }
+        var Aqua;
+        (Aqua = new Image(400, 400)).src = 'aquaGG.png';
+
+        function win(){
+            clearInterval(tick);
+            (new Promise((resolve, reject) => {
+                //document.body.innerHTML = Aqua.outerHTML;
+                setTimeout(resolve, 100);
+            })).then(() =>{
+                if(curL == 'custom')
+                    alert('OOF')
+                else{
+                   alert("GG ! You beated level "+curL+", now go to next level...")
+                    if(++curL > maxL)
+                        alert('GG you finished every level, now try creating a level !')
+                    else
+                        load('level'+curL)
+                }
+            });
+
+        }
+
+        function lose(m){
+            restart(m);
+        }
+
+        function restart(m){
+            if(m)
+                alert(m);
+            clearInterval(tick);
+            collected = 0;
+            level = Class(map, spawn, stars);
+            player = spawn;
+            drawBox(document.getElementById('ici'), level);
+        }
+
+        function clearF(){
+            F1 = new Array();
+            F2 = new Array();
+            Array.from(document.getElementById('algo').children).forEach(function(e, i){
+                Array.from(e.rows[0].cells).forEach(function(f, j){
+                	f.innerText = '';
+                    f.style.backgroundColor = '';
+                });
+            })
+
+        }
+
+
+        function dirToString(_dir){
+            switch (Math.abs(_dir)%360) {
+                case 0:
+                    return '/\\'
+                    break;
+                case 90:
+                    return '>';
+                    break;
+                case 180:
+                    return '\\/';
+                    break;
+                case 270:
+                    return '<';
+                    break;
+                default:
+                    return '?';
+            }
+        }
+
+    </script>
+</html>

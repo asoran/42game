@@ -1,0 +1,16 @@
+{
+    "map":
+    [
+        ["orange","rien","rien","rien","rien"],
+        ["orange","orange","rien","rien","rien"],
+        ["rien","orange","orange","rien","rien"],
+        ["rien","rien","orange","orange","rien"],
+        ["rien","rien","rien","orange","orange"]
+    ],
+    "dir": 180,
+    "stars": [
+        [4, 4],
+        [1, 0]
+    ],
+    "spawn": [0, 0]
+}

@@ -1,0 +1,18 @@
+{
+    "map":
+    [
+        ["green", "orange", "orange", "orange", "orange", "blue", "orange", "orange", "orange", "orange", "green"],
+        ["rien", "rien", "rien", "rien", "rien", "orange", "rien", "rien", "rien", "rien", "rien"],
+        ["rien", "rien", "rien", "rien", "rien", "orange", "rien", "rien", "rien", "rien", "rien"],
+        ["rien", "rien", "rien", "rien", "rien", "orange", "rien", "rien", "rien", "rien", "rien"],
+        ["rien", "rien", "rien", "rien", "rien", "orange", "rien", "rien", "rien", "rien", "rien"],
+        ["rien", "rien", "rien", "rien", "rien", "green", "rien", "rien", "rien", "rien", "rien"]
+    ],
+    "title": "Celui en forme de T",
+    "dir": 0,
+    "stars": [
+        [0, 0],
+        [0, 10]
+    ],
+    "spawn": [5, 5]
+}

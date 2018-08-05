@@ -1,0 +1,19 @@
+{
+    "map":
+    [
+        ["rien", "rien", "blue", "rien", "rien"],
+        ["rien", "rien", "blue", "rien", "rien"],
+        ["blue", "blue", "orange", "blue", "blue"],
+        ["rien", "rien", "blue", "rien", "rien"],
+        ["rien", "rien", "blue", "rien", "rien"]
+    ],
+    "title": "Celui en forme de +",
+    "dir": 0,
+    "stars": [
+        [0, 2],
+        [2, 0],
+        [2, 4],
+        [4, 2]
+    ],
+    "spawn": [2, 2]
+}
