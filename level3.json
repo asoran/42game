@@ -1,19 +1,21 @@
 {
     "map":
     [
-        ["rien", "rien", "blue", "rien", "rien"],
-        ["rien", "rien", "blue", "rien", "rien"],
-        ["blue", "blue", "orange", "blue", "blue"],
-        ["rien", "rien", "blue", "rien", "rien"],
-        ["rien", "rien", "blue", "rien", "rien"]
+        ["-1", "-1", "2", "-1", "-1"],
+        ["-1", "-1", "2", "-1", "-1"],
+        ["2", "2", "0", "2", "2"],
+        ["-1", "-1", "2", "-1", "-1"],
+        ["-1", "-1", "2", "-1", "-1"]
     ],
     "title": "Celui en forme de +",
-    "dir": 0,
+    "dir": "E",
     "stars": [
         [0, 2],
         [2, 0],
         [2, 4],
         [4, 2]
     ],
-    "spawn": [2, 2]
+    "spawn": [2, 2],
+    "author": "Altan4444",
+    "algo": [4, 2]
 }

@@ -1,24 +1,26 @@
 {
     "map":
     [
-        ["green","rien","rien","rien","rien","rien"],
-        ["green","rien","rien","rien","rien","rien"],
-        ["green","rien","rien","rien","rien","rien"],
-        ["green","rien","rien","rien","rien","rien"],
-        ["green","rien","rien","rien","rien","rien"],
-        ["green","rien","rien","rien","rien","rien"],
-        ["green","rien","rien","rien","rien","rien"],
-        ["orange","green","rien","rien","rien","rien"],
-        ["rien","green","green","rien","rien","rien"],
-        ["rien","rien","green","green","rien","rien"],
-        ["rien","rien","rien","green","green","rien"],
-        ["rien","rien","rien","rien","green","green"],
-        ["rien","rien","rien","rien","rien","green"]
+        ["1","-1","-1","-1","-1","-1"],
+        ["1","-1","-1","-1","-1","-1"],
+        ["1","-1","-1","-1","-1","-1"],
+        ["1","-1","-1","-1","-1","-1"],
+        ["1","-1","-1","-1","-1","-1"],
+        ["1","-1","-1","-1","-1","-1"],
+        ["1","-1","-1","-1","-1","-1"],
+        ["0","1","-1","-1","-1","-1"],
+        ["-1","1","1","-1","-1","-1"],
+        ["-1","-1","1","1","-1","-1"],
+        ["-1","-1","-1","1","1","-1"],
+        ["-1","-1","-1","-1","1","1"],
+        ["-1","-1","-1","-1","-1","1"]
     ],
-    "dir": 180,
+    "dir": "S",
     "stars": [
         [12, 5],
         [1, 0]
     ],
-    "spawn": [0, 0]
+    "spawn": [0, 0],
+    "author": "Altan4444",
+    "algo": [6]
 }

@@ -1,14 +1,14 @@
 {
     "map":
     [
-        ["green", "green", "green", "green", "green"],
-        ["green", "orange", "green", "orange", "green"],
-        ["green", "green", "orange", "green", "green"],
-        ["green", "orange", "green", "orange", "green"],
-        ["green", "green", "green", "green", "green"]
+        ["1", "1", "1", "1", "1"],
+        ["1", "0", "1", "0", "1"],
+        ["1", "1", "0", "1", "1"],
+        ["1", "0", "1", "0", "1"],
+        ["1", "1", "1", "1", "1"]
     ],
     "title": "La boite",
-    "dir": 90,
+    "dir": "E",
     "stars": [
         [0, 0],
         [0, 1],
@@ -35,5 +35,7 @@
         [4, 3],
         [4, 4]
     ],
-    "spawn": [2, 2]
+    "spawn": [2, 2],
+    "author": "Altan4444",
+    "algo": [4]
 }

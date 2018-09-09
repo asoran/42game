@@ -1,20 +1,22 @@
 {
     "map":
     [
-        ["orange"],
-        ["orange"],
-        ["orange"],
-        ["orange"],
-        ["orange"],
-        ["orange"],
-        ["orange"],
-        ["orange"],
-        ["orange"]
+        [0],
+        [0],
+        [0],
+        [0],
+        [0],
+        [0],
+        [0],
+        [0],
+        [0]
     ],
     "title": "Base",
-    "dir": 0,
+    "dir": "N",
     "stars": [
         [0, 0]
     ],
-    "spawn": [8, 0]
+    "spawn": [8, 0],
+    "author": "Altan4444",
+    "algo": [2]
 }

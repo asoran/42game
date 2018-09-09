@@ -1,16 +1,18 @@
 {
     "map":
     [
-        ["orange","rien","rien","rien","rien"],
-        ["orange","orange","rien","rien","rien"],
-        ["rien","orange","orange","rien","rien"],
-        ["rien","rien","orange","orange","rien"],
-        ["rien","rien","rien","orange","orange"]
+        ["0","-1","-1","-1","-1"],
+        ["0","0","-1","-1","-1"],
+        ["-1","0","0","-1","-1"],
+        ["-1","-1","0","0","-1"],
+        ["-1","-1","-1","0","0"]
     ],
-    "dir": 180,
+    "dir": "S",
     "stars": [
         [4, 4],
         [1, 0]
     ],
-    "spawn": [0, 0]
+    "spawn": [0, 0],
+    "author": "Altan4444",
+    "algo": [5]
 }

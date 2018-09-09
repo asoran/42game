@@ -1,18 +1,20 @@
 {
     "map":
     [
-        ["green", "orange", "orange", "orange", "orange", "blue", "orange", "orange", "orange", "orange", "green"],
-        ["rien", "rien", "rien", "rien", "rien", "orange", "rien", "rien", "rien", "rien", "rien"],
-        ["rien", "rien", "rien", "rien", "rien", "orange", "rien", "rien", "rien", "rien", "rien"],
-        ["rien", "rien", "rien", "rien", "rien", "orange", "rien", "rien", "rien", "rien", "rien"],
-        ["rien", "rien", "rien", "rien", "rien", "orange", "rien", "rien", "rien", "rien", "rien"],
-        ["rien", "rien", "rien", "rien", "rien", "green", "rien", "rien", "rien", "rien", "rien"]
+        ["2", "0", "0", "0", "0", "1", "0", "0", "0", "0", "2"],
+        ["-1", "-1", "-1", "-1", "-1", "0", "-1", "-1", "-1", "-1", "-1"],
+        ["-1", "-1", "-1", "-1", "-1", "0", "-1", "-1", "-1", "-1", "-1"],
+        ["-1", "-1", "-1", "-1", "-1", "0", "-1", "-1", "-1", "-1", "-1"],
+        ["-1", "-1", "-1", "-1", "-1", "0", "-1", "-1", "-1", "-1", "-1"],
+        ["-1", "-1", "-1", "-1", "-1", "2", "-1", "-1", "-1", "-1", "-1"]
     ],
     "title": "Celui en forme de T",
-    "dir": 0,
+    "dir": "N",
     "stars": [
         [0, 0],
         [0, 10]
     ],
-    "spawn": [5, 5]
+    "spawn": [5, 5],
+    "author": "Altan4444",
+    "algo": [6]
 }
